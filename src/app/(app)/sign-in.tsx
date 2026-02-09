@@ -17,6 +17,7 @@ import { Button } from "@rneui/themed/dist/Button";
 import { Input } from "@rneui/themed/dist/Input";
 import { Text } from "react-native";
 import GoogleSignIn from "../components/GoogleSignIn";
+import { Link } from "expo-router";
 
 // Tells Supabase Auth to continuously refresh the session automatically if
 // the app is in the foreground. When this is added, you will continue to receive
@@ -37,28 +38,19 @@ export default function Auth() {
 
   async function signInWithEmail() {
     setLoading(true);
+
+    if (!email || !password) {
+      Alert.alert("Please fill in all fields");
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
 
     if (error) Alert.alert(error.message);
-    setLoading(false);
-  }
-
-  async function signUpWithEmail() {
-    setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
-    if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
     setLoading(false);
   }
 
@@ -73,7 +65,7 @@ export default function Auth() {
           <View className="flex-1 justify-center">
             {/* Logo */}
             <View className="items-center mb-10">
-              <View className="w-20 h-20 bg-gradient-to-br from-blue-600 to purple-600 rounded-2xl items-center justify-center mb-4 shadow-lg">
+              <View className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl items-center justify-center mb-4 shadow-lg">
                 <Ionicons name="fitness" size={40} color="white" />
               </View>
               <Text className="text-2xl font-bold text-gray-900 mb-2">
@@ -158,54 +150,27 @@ export default function Auth() {
               <View className="flex-1 h-px bg-gray-200" />
             </View>
 
-            {/* google form section */}
-            {/* <View className="flex-row items-center justify-center">
-            <TouchableOpacity className="flex-row items-center justify-center bg-white rounded-xl px-4 py-4 border border-gray-200">
-              <Ionicons name="logo-google" size={20} color="#6B7280" />
-              <Text className="text-gray-900 font-semibold text-lg ml-2">
-                Sign in with Google
-              </Text>
-            </TouchableOpacity>
-          </View> */}
-
             <GoogleSignIn />
+            {/* google form section */}
 
-            {/* Form Section
-        <View style={[styles.verticallySpaced, styles.mt20]}>
-          <Input
-            label="Email"
-            leftIcon={<FontAwesome name="envelope" size={20} color="gray" />}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
-            placeholder="email@address.com"
-            autoCapitalize={"none"}
-          />
-        </View>
-        <View style={styles.verticallySpaced}>
-          <Input
-            label="Password"
-            leftIcon={<FontAwesome name="lock" size={20} color="gray" />}
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            secureTextEntry={true}
-            placeholder="Password"
-            autoCapitalize={"none"}
-          />
-        </View>
-        <View style={[styles.verticallySpaced, styles.mt20]}>
-          <Button
-            title="Sign in"
-            disabled={loading}
-            onPress={() => signInWithEmail()}
-          />
-        </View>
-        <View style={styles.verticallySpaced}>
-          <Button
-            title="Sign up"
-            disabled={loading}
-            onPress={() => signUpWithEmail()}
-          />
-        </View> */}
+            {/* Sign up section */}
+            <View className="flex-row items-center justify-center mt-6">
+              <Text className="text-gray-600">Don't have an account? </Text>
+              <Link href="/sign-up" asChild>
+                <TouchableOpacity>
+                  <Text className="text-blue-600 text-sm font-semibold">
+                    Sign up
+                  </Text>
+                </TouchableOpacity>
+              </Link>
+            </View>
+
+            {/* Footer section */}
+            <View className="pb-6">
+              <Text className="text-center text-gray-500 text-sm">
+                Start your fitness journey today!
+              </Text>
+            </View>
           </View>
         </View>
       </KeyboardAvoidingView>

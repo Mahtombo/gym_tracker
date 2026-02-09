@@ -45,42 +45,6 @@ export default function GoogleSignIn() {
   };
 
   return (
-    // <GoogleSigninButton
-    //   size={GoogleSigninButton.Size.Wide}
-    //   color={GoogleSigninButton.Color.Dark}
-    //   onPress={async () => {
-    //     try {
-    //       await GoogleSignin.hasPlayServices();
-    //       console.log("here2");
-    //       const response = await GoogleSignin.signIn();
-    //       if (isSuccessResponse(response)) {
-    //         console.log("here");
-    //         const idToken = response.data.idToken;
-    //         if (idToken) {
-    //           const { data, error } = await supabase.auth.signInWithIdToken({
-    //             provider: "google",
-    //             token: idToken,
-    //           });
-    //         } else {
-    //           console.error("Google Sign-In did not return an idToken.");
-    //         }
-    //       }
-    //     } catch (error: any) {
-    //       if (error.code === statusCodes.IN_PROGRESS) {
-    //         // operation (e.g. sign in) is in progress already
-    //         console.error("Operation is in progress already");
-    //       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-    //         // play services not available or outdated
-    //         console.error("Play services not available or outdated");
-    //       } else {
-    //         console.error(error);
-    //         // some other error happened
-    //         console.error(error.message);
-    //       }
-    //     }
-    //   }}
-    // />
-
     <TouchableOpacity
       onPress={onPress}
       className="bg-white border-2 border-gray-200 rounded-xl py-4 shadow-sm"
