@@ -33,6 +33,7 @@
     "react-native-web": "^0.21.0",
     "react-native-worklets": "0.5.1",
     "react-refresh": "^0.18.0",
+    "supabase": "^2.76.6",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
